@@ -1,0 +1,43 @@
+name: Build tvOS Launcher
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Descargar código
+        uses: actions/checkout@v4
+
+      - name: Instalar Java 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+
+      - name: Configurar Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Instalar herramientas Android
+        run: |
+          sdkmanager "platform-tools" "build-tools;34.0.0" "platforms;android-34"
+
+      - name: Compilar APK
+        run: |
+          chmod +x build.sh
+          ./build.sh
+
+      - name: Guardar APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: tvOS-Launcher-API25
+          path: build/tvos-home.apk
+          if-no-files-found: error
+          retention-days: 14
