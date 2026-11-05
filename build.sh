@@ -11,7 +11,7 @@ fi
 if [ -n "${JAVA_HOME:-}" ]; then export JAVA_HOME; export PATH="$JAVA_HOME/bin:$PATH"; fi
 SDK="${ANDROID_HOME:-${ANDROID_SDK_ROOT:-$HOME/Library/Android/sdk}}"
 [ -d "$SDK" ] || SDK="$HOME/Android/Sdk"  # Linux default
-BT="$SDK/build-tools/34.0.0"
+BT="$SDK/build-tools/35.0.0"
 JAR="$SDK/platforms/android-34/android.jar"
 for f in "$BT/aapt2" "$BT/d8" "$JAR"; do
     [ -e "$f" ] || { echo "Missing $f — install build-tools 34.0.0 and platform android-34 (sdkmanager), or set ANDROID_HOME." >&2; exit 1; }
