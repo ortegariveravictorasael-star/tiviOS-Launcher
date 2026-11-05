@@ -1284,17 +1284,6 @@ public class MainActivity extends Activity {
             return b;
         }
         if (playStore) {
-            if (Build.VERSION.SDK_INT >= 26 && e.icon instanceof android.graphics.drawable.AdaptiveIconDrawable) {
-                Drawable fg = ((android.graphics.drawable.AdaptiveIconDrawable) e.icon).getForeground();
-                if (fg != null) {
-                    int sz = (int) (h * 0.82f);
-                    Rect old = fg.copyBounds();
-                    fg.setBounds((w - sz) / 2, (h - sz) / 2, (w + sz) / 2, (h + sz) / 2);
-                    fg.draw(c);
-                    fg.setBounds(old);
-                    return b;
-                }
-            }
             if (e.icon != null) {
                 int sz = (int) (h * 0.50f);
                 Rect old = e.icon.copyBounds();
@@ -1347,15 +1336,7 @@ public class MainActivity extends Activity {
     Bitmap whiteGlyph(AppEntry e, int size) {
         if (e.icon == null) return null;
         Drawable d = e.icon;
-        float zoom = 1f;
-        if (d instanceof android.graphics.drawable.AdaptiveIconDrawable) {
-            Drawable fg = ((android.graphics.drawable.AdaptiveIconDrawable) d).getForeground();
-            if (fg != null) {
-                d = fg;
-                zoom = 1.5f;  // adaptive foregrounds keep the glyph in the centre 2/3
-            }
-        }
-        int big = Math.round(size * zoom);
+        int big = size;
         Bitmap full = Bitmap.createBitmap(big, big, Bitmap.Config.ARGB_8888);
         Rect old = d.copyBounds();
         d.setBounds(0, 0, big, big);

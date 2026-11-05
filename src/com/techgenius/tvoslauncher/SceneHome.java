@@ -1697,27 +1697,6 @@ final class SceneHome {
             p.setShader(null);
         }
 
-        if (a.icon instanceof android.graphics.drawable.AdaptiveIconDrawable) {
-            android.graphics.drawable.AdaptiveIconDrawable aid = (android.graphics.drawable.AdaptiveIconDrawable) a.icon;
-            Drawable bgD = aid.getBackground();
-            Drawable fgD = aid.getForeground();
-            // Expand adaptive 108dp layers by 24% around the 72dp safe zone so they bleed edge-to-edge in a square
-            int inset = -Math.round(s * 0.24f);
-            if (bgD != null && !isPlayStore) {
-                Rect old = bgD.copyBounds();
-                bgD.setBounds(inset, inset, s - inset, s - inset);
-                bgD.draw(c);
-                bgD.setBounds(old);
-            }
-            if (fgD != null) {
-                Rect old = fgD.copyBounds();
-                fgD.setBounds(inset, inset, s - inset, s - inset);
-                fgD.draw(c);
-                fgD.setBounds(old);
-            }
-            return out;
-        }
-
         if (a.icon != null) {
             int rawW = Math.max(128, a.icon.getIntrinsicWidth());
             int rawH = Math.max(128, a.icon.getIntrinsicHeight());
